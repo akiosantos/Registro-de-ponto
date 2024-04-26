@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mostra o registro atual
     mostrarRegistro(registro);
+
+    // Cria e baixa o arquivo Excel
+    criarEbaixarExcel();
   });
 
   function salvarRegistro(registro) {
@@ -38,5 +41,42 @@ document.addEventListener('DOMContentLoaded', function() {
       <p>Retorno do Almoço: ${registro.retornoAlmoco}</p>
       <p>Saída: ${registro.saida}</p>
     `;
+  }
+
+  function criarEbaixarExcel() {
+    const registros = JSON.parse(localStorage.getItem('registros')) || [];
+    const data = registros.map(registro => [registro.entrada, registro.saidaAlmoco, registro.retornoAlmoco, registro.saida]);
+
+    xlsxPopulate.fromBlankAsync()
+      .then(workbook => {
+        const sheet = workbook.sheet(0);
+        sheet.cell("A1").value("Entrada");
+        sheet.cell("B1").value("Saída para o Almoço");
+        sheet.cell("C1").value("Retorno do Almoço");
+        sheet.cell("D1").value("Saída");
+
+        data.forEach((row, index) => {
+          sheet.cell(index + 2, 1).value(row[0]);
+          sheet.cell(index + 2, 2).value(row[1]);
+          sheet.cell(index + 2, 3).value(row[2]);
+          sheet.cell(index + 2, 4).value(row[3]);
+        });
+
+        return workbook.outputAsync();
+      })
+      .then(data => {
+        const blob = new Blob([data], { type: "application/octet-stream" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "registro_ponto.xlsx";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      })
+      .catch(error => {
+        console.error("Erro ao criar o arquivo Excel:", error);
+      });
   }
 });
