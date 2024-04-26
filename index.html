@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Ponto</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Registro de Ponto</h1>
+  <form id="registroForm">
+    <label for="entrada">Horário de Entrada:</label>
+    <input type="time" id="entrada" required><br>
+    
+    <label for="saidaAlmoco">Saída para o Almoço:</label>
+    <input type="time" id="saidaAlmoco" required><br>
+    
+    <label for="retornoAlmoco">Retorno do Almoço:</label>
+    <input type="time" id="retornoAlmoco" required><br>
+    
+    <label for="saida">Horário de Saída:</label>
+    <input type="time" id="saida" required><br>
+    
+    <button type="submit">Registrar Ponto</button>
+  </form>
+  
+  <div id="registroAtual"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
