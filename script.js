@@ -99,3 +99,17 @@ firebase.initializeApp(firebaseConfig);
 // Referência ao banco de dados em tempo real do Firebase
 const database = firebase.database();
 
+function salvarRegistro(registro) {
+  // Cria uma nova chave para o registro
+  const novoRegistroRef = database.ref('registros').push();
+
+  // Salva o registro no Firebase
+  novoRegistroRef.set(registro)
+    .then(() => {
+      console.log("Registro salvo no Firebase Realtime Database.");
+    })
+    .catch(error => {
+      console.error("Erro ao salvar registro no Firebase:", error);
+    });
+}
+
