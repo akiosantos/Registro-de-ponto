@@ -80,3 +80,22 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   }
 });
+
+
+// Configure o Firebase com suas credenciais
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_DOMÍNIO.firebaseapp.com",
+  databaseURL: "https://SEU_DOMÍNIO.firebaseio.com",
+  projectId: "SEU_PROJECT_ID",
+  storageBucket: "SEU_STORAGE_BUCKET",
+  messagingSenderId: "SEU_SENDER_ID",
+  appId: "SUA_APP_ID"
+};
+
+// Inicialize o Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Referência ao banco de dados em tempo real do Firebase
+const database = firebase.database();
+
